@@ -1,0 +1,40 @@
+$symbol-color: #FFFCC9;
+
+.symbol {
+  width: 60%;
+  height: 60%;
+
+  &__x {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    &__line1 {
+      background-color: $symbol-color;
+      width: 2rem;
+      height: 100%;
+      transform: translateX(-50%) rotate(45deg);
+      left: 50%;
+      position: absolute;
+    }
+    
+    &__line2 {
+      background-color: $symbol-color;
+      width: 2rem;
+      height: 100%;
+      transform: translateX(-50%) rotate(-45deg);
+      left: 50%;
+      position: absolute;
+    }
+  }
+
+  &__o {
+    box-sizing: border-box;
+    border: 35px solid $symbol-color;
+    border-radius: 100%;
+
+    width: 95%;
+    height: 95%;
+
+  }
+}

@@ -1,25 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Symbol from '../Symbol/Symbol';
 import './TicTacToe.scss';
 
+export const PLAYER_1_SYMBOL = "x";
+export const PLAYER_2_SYMBOL = "o";
+
+const isGameOver = (winner: string) => winner ? true : false;
+
+const checkWinner = (grid: string[]) => {
+   let winner: string = "";
+   
+   for (let i = 0; i < grid.length; i++) {
+      let ix3 = i*3;
+      if (grid[ix3] && grid[ix3] === grid[ix3+1] && grid[ix3+1] === grid[ix3+2]) {
+         return grid[ix3];
+      }
+      if (grid[i] && grid[i] === grid[i+3] && grid[i+3] === grid[i+6]) {
+         return grid[i];
+      }
+      
+      let ix2 = i*2;
+      if (grid[ix2] && i < 2 && grid[ix2] === grid[4] && grid[4] === grid[-(ix2) + 8]) {
+         return grid[ix2];
+      }
+   }
+
+   return winner;
+}
+
 const TicTacToe = () => {
 
-   const [ playerTurn, setPlayerTurn ] = useState<boolean | null>(true);
-   const [ grid, setGrid ] = useState<(boolean | null)[]>([null,null,null, null,null, null, null,null,null])
-
-   const isGameOver = (winner: boolean | null) => winner === true || winner === false;
+   const [ playerTurn, setPlayerTurn ] = useState<string>(PLAYER_1_SYMBOL);
+   const [ grid, setGrid ] = useState<(string)[]>(["","","", "","", "", "","",""])
 
    const handleClick = (e: any) => {
-      let winner = checkWinner();
+      let winner = checkWinner(grid);
       if (isGameOver(winner)) return;
       
       const clickedIndex: number = parseInt(e.target.id);
       
       const newGrid = grid.map((value, i) => {
-         if (value !== null) return value;
+         if (value) return value;
          else if (clickedIndex === i) {
-            setPlayerTurn(!playerTurn)
-         
+            setPlayerTurn(playerTurn === PLAYER_1_SYMBOL ? PLAYER_2_SYMBOL : PLAYER_1_SYMBOL)
             return playerTurn; 
          }
          else return value
@@ -27,35 +50,35 @@ const TicTacToe = () => {
       
       setGrid(newGrid);
 
-      winner = checkWinner();
+      winner = checkWinner(newGrid);
       if (isGameOver(winner)) {
          setPlayerTurn(winner);
       } 
-      
    }
 
-
-   const checkWinner = () => {
-      let winner: boolean | null = null;
-      if (grid[0] && grid[1] && grid[2]) {winner = true};
-
-      return winner;
+   const restartGame = () => {
+      setPlayerTurn(PLAYER_1_SYMBOL);
+      setGrid(["","","", "","", "", "","",""]);
    }
 
-   const showSymbol = (value: boolean | null) => {
-      if (value === true) return <Symbol player={value}></Symbol>
-      else if (value === false) return <Symbol player={value}></Symbol>
+   const showSymbol = (value: string) => {
+      if (value === PLAYER_1_SYMBOL) return <Symbol player={value}></Symbol>
+      else if (value === PLAYER_2_SYMBOL) return <Symbol player={value}></Symbol>
       else return
    }
 
 
-   let status: string;
-   let winner = checkWinner();
+   let status: string = "";
+   let winner = checkWinner(grid);
    if (winner) {
-      status = `WINNER: ${winner ? 'X' : 'O'}!`
+      if (winner === 'x') status = `WINNER: X!`
+      else status = `WINNER: O!`
    } else {
-      status =  `Player ${playerTurn ? 1 : 2} Go!`
+      if (playerTurn === 'x') status =  `Player ${PLAYER_1_SYMBOL.toUpperCase()} Go!`
+      else status =  `Player ${PLAYER_2_SYMBOL.toUpperCase()} Go!`
    }
+
+   
 
    return (
       <div className='tic-tac-toe'>
@@ -68,8 +91,10 @@ const TicTacToe = () => {
          </div>
 
          <h2 className='tic-tac-toe__player'>{status}</h2>
+         <button className='tic-tac-toe__reset' onClick={restartGame}>RESET</button>
       </div>
    );
 };
 
+export { isGameOver, checkWinner }
 export default TicTacToe;

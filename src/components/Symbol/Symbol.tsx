@@ -1,9 +1,10 @@
 import './Symbol.scss';
 
 import React from 'react'
+import { PLAYER_1_SYMBOL, PLAYER_2_SYMBOL } from '../TicTacToe/TicTacToe';
 
 interface SymbolProps {
-  player: boolean | null
+  player: string
 }
 
 const Symbol = (props: SymbolProps) => {
@@ -13,12 +14,12 @@ const Symbol = (props: SymbolProps) => {
 
   return (
     <div className="symbol">
-      {player === true && 
+      {player === PLAYER_1_SYMBOL && 
         <div className="symbol__x">
           <div className="symbol__x__line1"></div>
           <div className="symbol__x__line2"></div>
         </div>}
-      {player === false && <div className="symbol__o"></div>}
+      {player === PLAYER_2_SYMBOL && <div className="symbol__o"></div>}
     </div>
   )
 }

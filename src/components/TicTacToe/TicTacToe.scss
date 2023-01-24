@@ -1,21 +1,53 @@
-// @import '../../sass/variables.sass';
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 $grid-min-width: 80vw;
-$title-font: 'Courier New', Courier, monospace;
-$player-font: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+$title-font: 'Press Start 2P', cursive;
+$player-font: 'Press Start 2P', cursive;
 
 .tic-tac-toe {
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 0 3rem 0;
+  margin: 0;
+
   &__title {
     text-align: center;
     font-family: $title-font;
-    font-size: 3.5rem;
+    font-size: 6vw;
   }
   
   &__player {
     text-align: center;
     font-family: $player-font;
-    font-size: 2rem;
+    font-size: 3.5vw;
+    padding: 1rem;
+  }
+
+  &__reset {
+    position: relative;
+    background-color: #D9534F;
+    color: white;
+    font-family: $player-font;
+    padding: 1rem;
+    width: 40vw;
+    font-size: 2vw;
+    border: none;
+    top: 0;
+    left: 0;
+    
+    transition: all .1s ease-in;
+    box-shadow: 5px 10px #888888;
+    
+    &:active {
+      transition: all .1s ease-in;
+
+      top: 5px;
+      left: 5px;
+      box-shadow: none;
+
+    }
+
   }
 
 }

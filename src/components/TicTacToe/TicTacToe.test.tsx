@@ -1,5 +1,5 @@
 import React from 'react';
-import TicTacToe, { checkWinner, isGameOver, PLAYER_1_SYMBOL, PLAYER_2_SYMBOL } from "./TicTacToe";
+import TicTacToe, { checkWinner, isGameOver, isTie, PLAYER_1_SYMBOL, PLAYER_2_SYMBOL } from "./TicTacToe";
 import { buildGrid, inverseGrid } from './helpers.test';
 
 //test block
@@ -199,40 +199,6 @@ describe("checkWinner function", () => {
     });
   });
 
-  describe("When there's no winner 2", () => {
-    it("should return empty string", () => {
-      let board: string = `
-      xox
-      oox
-      xxo
-      `
-      const grid = buildGrid(board);
-      let winner = checkWinner(grid);
-      expect(winner).toBe("");
-      
-      const inversedGrid = inverseGrid(grid);
-      winner = checkWinner(inversedGrid);
-      expect(winner).toBe("");
-    });
-  });
-
-  describe("When there's no winner 3", () => {
-    it("should return empty string", () => {
-      let board: string = `
-      oxx
-      xoo
-      oxx
-      `
-      const grid = buildGrid(board);
-      let winner = checkWinner(grid);
-      expect(winner).toBe("");
-      
-      const inversedGrid = inverseGrid(grid);
-      winner = checkWinner(inversedGrid);
-      expect(winner).toBe("");
-    });
-  });
-
   describe("When there's no winner 4", () => {
     it("should return empty string", () => {
       let board: string = `
@@ -250,6 +216,60 @@ describe("checkWinner function", () => {
     });
   });
 
+  
+  
+  
+});
+describe("isTie function", () => {
+  describe("when given a full winner board", () => {
+    it("should return false for NO TIE", () => {
+      let board: string = `
+      xox
+      oxo
+      ox-
+      `
+      const grid = buildGrid(board);
+      expect(isTie(grid)).toBe(false);
+      
+    });
+  });
 
+  describe("when given a TIE 1", () => {
+    it("should return true for TIE", () => {
+      let board: string = `
+      xxo
+      oox
+      xox
+      `
+      const grid = buildGrid(board);
+      expect(isTie(grid)).toBe(true);
+      
+    });
+  });
 
+  describe("when given a TIE 2", () => {
+    it("should return true for TIE", () => {
+      let board: string = `
+      oox
+      xxo
+      oxx
+      `
+      const grid = buildGrid(board);
+      expect(isTie(grid)).toBe(true);
+      
+    });
+  });
+
+  describe("when given a TIE 3", () => {
+    it("should return true for TIE", () => {
+      let board: string = `
+      oxo
+      oxx
+      xox
+      `
+      const grid = buildGrid(board);
+      expect(isTie(grid)).toBe(true);
+      
+    });
+  });
 });

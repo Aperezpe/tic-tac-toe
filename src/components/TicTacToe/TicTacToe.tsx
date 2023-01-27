@@ -7,6 +7,14 @@ export const PLAYER_2_SYMBOL = "o";
 
 const isGameOver = (winner: string) => winner ? true : false;
 
+const isTie = (grid: string[]) => {
+   for (let cell of grid) {
+      if (cell === '') return false; 
+   }
+
+   return true;
+}
+
 const checkWinner = (grid: string[]) => {
    let winner: string = "";
    
@@ -25,13 +33,13 @@ const checkWinner = (grid: string[]) => {
       }
    }
 
-   return winner;
+   return isTie(grid) ? "tie" : winner;
 }
 
 const TicTacToe = () => {
 
    const [ playerTurn, setPlayerTurn ] = useState<string>(PLAYER_1_SYMBOL);
-   const [ grid, setGrid ] = useState<(string)[]>(["","","", "","", "", "","",""])
+   const [ grid, setGrid ] = useState<(string)[]>(["","","", "","", "", "","",""]);
 
    const handleClick = (e: any) => {
       let winner = checkWinner(grid);
@@ -71,8 +79,8 @@ const TicTacToe = () => {
    let status: string = "";
    let winner = checkWinner(grid);
    if (winner) {
-      if (winner === 'x') status = `WINNER: X!`
-      else status = `WINNER: O!`
+      if (winner === 'x' || winner === 'o') status = `WINNER: ${winner.toLocaleUpperCase()}!`
+      else if (winner === 'tie') status = "Its a TIE!"
    } else {
       if (playerTurn === 'x') status =  `Player ${PLAYER_1_SYMBOL.toUpperCase()} Go!`
       else status =  `Player ${PLAYER_2_SYMBOL.toUpperCase()} Go!`
@@ -96,5 +104,5 @@ const TicTacToe = () => {
    );
 };
 
-export { isGameOver, checkWinner }
+export { isGameOver, checkWinner, isTie }
 export default TicTacToe;

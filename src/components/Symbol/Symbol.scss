@@ -1,4 +1,5 @@
 $symbol-color: #FFFCC9;
+$symbol-thickness: 2vw;
 
 .symbol {
   width: 60%;
@@ -15,7 +16,7 @@ $symbol-color: #FFFCC9;
 
     &__line1 {
       background-color: $symbol-color;
-      width: 3vw;
+      width: $symbol-thickness;
       height: 100%;
       transform: translateX(-50%) rotate(45deg);
       left: 50%;
@@ -24,7 +25,7 @@ $symbol-color: #FFFCC9;
     
     &__line2 {
       background-color: $symbol-color;
-      width: 3vw;
+      width: $symbol-thickness;
       height: 100%;
       transform: translateX(-50%) rotate(-45deg);
       left: 50%;
@@ -34,7 +35,7 @@ $symbol-color: #FFFCC9;
 
   &__o {
     box-sizing: border-box;
-    border: 3vw solid $symbol-color;
+    border: $symbol-thickness solid $symbol-color;
     border-radius: 100%;
 
     width: 95%;
